@@ -1,0 +1,16 @@
+<resources>
+    <declare-styleable name="ESToggleEditText">
+        <attr name="drawable_hide" format="integer" />
+        <attr name="drawable_show" format="integer" />
+        <attr name="monospace" format="boolean"  />
+    </declare-styleable>
+
+    <declare-styleable name="ESViewPager">
+        <attr name="swipeable" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ESNiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+    </declare-styleable>
+</resources>

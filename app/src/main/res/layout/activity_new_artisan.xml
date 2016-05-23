@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ng.softcom.bespoke.craftadmin.activities.CANewArtisan">
+
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:spb_sections_count="2"
+        app:spb_colors="@array/progress_bar_colors"
+        app:spb_stroke_separator_length="@dimen/zero"
+        app:spb_reversed="true"
+        app:spb_mirror_mode="true"
+        app:spb_stroke_width="@dimen/small_margin"
+        app:spb_interpolator="spb_interpolator_acceleratedecelerate"
+        app:spb_progressiveStart_activated="true"
+        app:spb_progressiveStart_speed="2"
+        app:spb_progressiveStop_speed="3.4"
+        android:layout_marginTop="-1dp"
+        android:visibility="gone"
+        app:spb_speed="1.0" />
+
+    <include android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/fragment_new_artisan"
+        android:layout_below="@+id/progress_bar" />
+
+</RelativeLayout>

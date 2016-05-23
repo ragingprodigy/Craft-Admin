@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:paddingRight="@dimen/medium_margin"
+    android:paddingLeft="@dimen/medium_margin"
+    android:paddingTop="@dimen/medium_margin"
+    android:paddingBottom="@dimen/medium_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:baselineAligned="true">
+
+    <RelativeLayout
+        android:gravity="center"
+        android:id="@+id/badge"
+        android:layout_gravity="center|center_vertical"
+        android:layout_marginRight="@dimen/large_margin"
+        android:background="@drawable/oval_bg_blue"
+        android:layout_width="@dimen/circular_badge_size"
+        android:layout_height="@dimen/circular_badge_size"
+        tools:ignore="RtlHardcoded">
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:id="@+id/label"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        tools:ignore="InefficientWeight">
+
+        <TextView
+            android:id="@+id/title"
+            android:ellipsize="marquee"
+            android:textColor="@color/oil"
+            android:maxLines="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/description"
+            android:ellipsize="marquee"
+            android:textColor="@color/oil"
+            android:maxLines="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+</LinearLayout>

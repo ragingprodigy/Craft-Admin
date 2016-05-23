@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ng.softcom.bespoke.craftadmin.activities.CAEditActivity">
+
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:spb_sections_count="2"
+        app:spb_colors="@array/progress_bar_colors"
+        app:spb_stroke_separator_length="@dimen/zero"
+        app:spb_reversed="true"
+        app:spb_mirror_mode="true"
+        app:spb_stroke_width="@dimen/small_margin"
+        app:spb_interpolator="spb_interpolator_acceleratedecelerate"
+        app:spb_progressiveStart_activated="true"
+        app:spb_progressiveStart_speed="2"
+        app:spb_progressiveStop_speed="3.4"
+        android:layout_marginTop="-1dp"
+        android:visibility="gone"
+        app:spb_speed="1.0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/medium_margin"
+        android:paddingRight="@dimen/medium_margin"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Company Name -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textImeMultiLine"
+                    android:hint="@string/company_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Last Name -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textImeMultiLine"
+                    android:hint="@string/surname_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- First Name -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textImeMultiLine"
+                    android:hint="@string/firstname_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Middle Name -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_middlename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textImeMultiLine"
+                    android:hint="@string/middlename_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Phone -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="@string/phone_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Email -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Address -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_address"
+                    android:lines="3"
+                    android:minLines="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences|textImeMultiLine"
+                    android:hint="@string/address_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <ng.softcom.bespoke.craftadmin.thirdparty.nicespinner.ESNiceSpinner
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:id="@+id/specialtySpinner"
+                android:hint="@string/specialty"
+                android:background="@drawable/border_bottom_only_iron"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Guarantor's Name -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_guarantor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords|textImeMultiLine"
+                    android:hint="@string/guarantor_name_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Guarantor's Phone -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_guarantor_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="@string/guarantor_phone_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Guarantor's Address -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_guarantor_address"
+                    android:lines="3"
+                    android:minLines="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences|textImeMultiLine"
+                    android:hint="@string/guarantor_address_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:text="@string/bank_details_label"
+                android:textColor="@color/jet"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:paddingBottom="@dimen/small_margin"
+                android:background="@drawable/border_bottom_only_jet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ng.softcom.bespoke.craftadmin.thirdparty.nicespinner.ESNiceSpinner
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:id="@+id/bankSpinner"
+                android:hint="@string/bank"
+                android:background="@drawable/border_bottom_only_iron"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Account Number -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_nuban_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="@string/account_number_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- Account Name -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin">
+
+                <EditText android:id="@+id/input_account_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:hint="@string/account_name_hint" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:paddingBottom="@dimen/large_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:id="@+id/back"
+                    android:text="@string/cancel"
+                    android:padding="@dimen/large_margin"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:drawablePadding="@dimen/medium_margin"
+                    android:drawableLeft="@drawable/ic_clear_white_18dp"
+                    android:drawableStart="@drawable/ic_clear_white_18dp"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:id="@+id/submit"
+                    android:text="@string/update"
+                    android:padding="@dimen/large_margin"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/medium_margin"
+                    android:drawableStart="@drawable/ic_cloud_upload_white_18dp"
+                    android:drawableLeft="@drawable/ic_cloud_upload_white_18dp"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

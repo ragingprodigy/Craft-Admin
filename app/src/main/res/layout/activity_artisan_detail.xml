@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ng.softcom.bespoke.craftadmin.activities.CAArtisanDetail">
+
+    <LinearLayout
+        android:layout_margin="@dimen/medium_margin"
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:spb_sections_count="2"
+            app:spb_colors="@array/progress_bar_colors"
+            app:spb_stroke_separator_length="@dimen/zero"
+            app:spb_reversed="true"
+            app:spb_mirror_mode="true"
+            app:spb_stroke_width="@dimen/small_margin"
+            app:spb_interpolator="spb_interpolator_acceleratedecelerate"
+            app:spb_progressiveStart_activated="true"
+            app:spb_progressiveStart_speed="2"
+            app:spb_progressiveStop_speed="3.4"
+            android:visibility="gone"
+            app:spb_speed="1.0" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:contentDescription="@null"
+                android:id="@+id/profile"
+                android:layout_centerInParent="true"
+                android:layout_width="@dimen/profile_pic_size"
+                android:layout_height="@dimen/profile_pic_size" />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_new_profile"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/change"
+                android:drawableLeft="@drawable/ic_add_a_photo_white_18dp"
+                android:drawablePadding="@dimen/medium_margin"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/medium_margin"
+            android:paddingBottom="@dimen/medium_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_name"
+                android:textColor="@color/oil"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="@dimen/small_margin"
+                android:paddingRight="@dimen/small_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginTop="@dimen/small_margin"
+                android:id="@+id/lbl_company"
+                android:textColor="@color/oil"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_margin"
+            android:background="@color/white">
+
+            <TextView
+                android:drawableLeft="@drawable/ic_phone_black_18dp"
+                android:drawableStart="@drawable/ic_phone_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_phone"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_mail_outline_black_18dp"
+                android:drawableStart="@drawable/ic_mail_outline_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_email"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_business_black_18dp"
+                android:drawableStart="@drawable/ic_business_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_address"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_stars_black_18dp"
+                android:drawableStart="@drawable/ic_stars_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_specialty"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_stars_black_18dp"
+                android:drawableStart="@drawable/ic_stars_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_guarantor"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_stars_black_18dp"
+                android:drawableStart="@drawable/ic_stars_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_guarantor_address"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_stars_black_18dp"
+                android:drawableStart="@drawable/ic_stars_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_guarantor_phone"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_business_black_18dp"
+                android:drawableStart="@drawable/ic_business_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_bank"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawableLeft="@drawable/ic_business_black_18dp"
+                android:drawableStart="@drawable/ic_business_black_18dp"
+                android:drawablePadding="@dimen/large_margin"
+                style="@style/artisanCardDetail"
+                android:id="@+id/lbl_account"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/small_margin"
+            android:id="@+id/picsContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/medium_margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:textColor="@color/oil"
+                    android:text="@string/work_pics_headline"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="0dp"
+                    android:layout_weight="8"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btn_new_work_pick"
+                    android:layout_gravity="end"
+                    android:drawableLeft="@drawable/ic_add_a_photo_white_18dp"
+                    android:paddingRight="@dimen/medium_margin"
+                    android:textColor="@color/white"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="1"
+            android:layout_marginTop="@dimen/large_margin"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_edit"
+                android:text="@string/edit"
+                android:layout_margin="4dp"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
