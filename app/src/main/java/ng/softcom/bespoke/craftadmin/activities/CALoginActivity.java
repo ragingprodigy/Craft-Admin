@@ -48,9 +48,6 @@ public class CALoginActivity extends AppCompatActivity {
         txtUsername = (EditText) findViewById(R.id.input_email);
         txtPassword = (EditText) findViewById(R.id.input_password);
 
-//        txtUsername.setText("ay4life67");
-//        txtPassword.setText("password");
-
         String AUTH_ENDPOINT = getString(R.string.web_service_url);
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(AUTH_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
