@@ -1,14 +1,17 @@
 package ng.softcom.bespoke.craftadmin.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -47,6 +50,8 @@ public class ArtisansFragment extends CAFragment {
     private DynamicListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View emptyState;
+
+    private TextView counter;
 
     private AlphaInAnimationAdapter animationAdapter;
 
@@ -90,31 +95,48 @@ public class ArtisansFragment extends CAFragment {
         animationAdapter.setAbsListView(listView);
         listView.setAdapter(adapter);
 
+        counter = (TextView) rootView.findViewById(R.id.counter);
+
         listView.enableSwipeToDismiss(new OnDismissCallback() {
             @Override
             public void onDismiss(ViewGroup listView, int[] reverseSortedPositions) {
                 for (final int position : reverseSortedPositions) {
-                    CAArtisan artisan = adapter.getItem(position);
 
-                    mListener.showProgressBar();
-                    artisanService.deleteArtisan(artisan.getId()).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            mListener.hideProgressBar();
-                            if (response.code() == 204) {
-                                // Remove from Cache too
-                                adapter.remove(position);
-                                craft.getSharedPrefs().writeString(adapter.getData().toString(), getString(R.string.artsans_list_cache_key));
-                            } else {
-                                showShortToast("Unable to delete Artisan data from server. " + response.body());
-                            }
-                        }
+                    new AlertDialog.Builder(getActivity())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.delete_record)
+                            .setMessage(R.string.really_delete)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            mListener.hideProgressBar();
-                        }
-                    });
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    CAArtisan artisan = adapter.getItem(position);
+
+                                    mListener.showProgressBar();
+                                    artisanService.deleteArtisan(artisan.getId()).enqueue(new Callback<String>() {
+                                        @Override
+                                        public void onResponse(Call<String> call, Response<String> response) {
+                                            mListener.hideProgressBar();
+                                            if (response.code() == 204) {
+                                                // Remove from Cache too
+                                                adapter.remove(position);
+                                                setCounterValue(adapter.getCount());
+                                                craft.getSharedPrefs().writeString(adapter.getData().toString(), getString(R.string.artsans_list_cache_key));
+                                            } else {
+                                                showShortToast("Unable to delete Artisan data from server. " + response.body());
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<String> call, Throwable t) {
+                                            mListener.hideProgressBar();
+                                        }
+                                    });
+                                }
+
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show();
                 }
             }
         });
@@ -123,6 +145,16 @@ public class ArtisansFragment extends CAFragment {
         emptyState = rootView.findViewById(R.id.emptyState);
         
         return rootView;
+    }
+
+    /**
+     * Set the text to display on the counter
+     *
+     * @param count int
+     */
+    private void setCounterValue(int count) {
+        String value = "Registered Artisans: " + count;
+        counter.setText(value);
     }
 
     @Override
@@ -240,6 +272,8 @@ public class ArtisansFragment extends CAFragment {
             emptyState.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         }
+
+        setCounterValue(adapter.getCount());
     }
 
     @Override

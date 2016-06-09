@@ -71,4 +71,6 @@
     <string name="title_activity_caedit">Edit Activity</string>
     <string name="cancel">Cancel</string>
     <string name="update">Update Data</string>
+    <string name="delete_record">Delete Record?</string>
+    <string name="really_delete">Are you sure you want to delete this record?</string>
 </resources>

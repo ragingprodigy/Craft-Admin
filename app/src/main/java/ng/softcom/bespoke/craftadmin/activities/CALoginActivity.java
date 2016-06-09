@@ -131,10 +131,10 @@ public class CALoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_password) {
-            // TODO: Switch to Password reset Page
-            CAAlerts.showShortToast(this, "Show Password Reset Page");
-        }
+//        if (id == R.id.action_password) {
+//            // TODO: Switch to Password reset Page
+//            CAAlerts.showShortToast(this, "Show Password Reset Page");
+//        }
 
         return super.onOptionsItemSelected(item);
     }
