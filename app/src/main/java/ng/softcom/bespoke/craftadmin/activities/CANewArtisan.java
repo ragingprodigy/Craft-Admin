@@ -229,58 +229,50 @@ public class CANewArtisan extends CASecureActivity implements android.location.L
             if (errors.isEmpty()) {
 
                 // Set and Validate other data
-                if (identityBitmap != null) {
+                // Guarantor Validation
+                if (guarantorAddress.isEmpty() || guarantorName.isEmpty() || guarantorPhone.isEmpty()) {
+                    if (guarantorAddress.isEmpty()) txtGuarantorAddress.setError("Please provide Guarantor's Contact Address");
+                    if (guarantorName.isEmpty()) txtGuarantorName.setError("Please provide Guarantor's Name");
+                    if (guarantorPhone.isEmpty()) txtGuarantorPhone.setError("Please provide Guarantor's Phone Number");
 
-                    // Guarantor Validation
-                    if (guarantorAddress.isEmpty() || guarantorName.isEmpty() || guarantorPhone.isEmpty()) {
-                        if (guarantorAddress.isEmpty()) txtGuarantorAddress.setError("Please provide Guarantor's Contact Address");
-                        if (guarantorName.isEmpty()) txtGuarantorName.setError("Please provide Guarantor's Name");
-                        if (guarantorPhone.isEmpty()) txtGuarantorPhone.setError("Please provide Guarantor's Phone Number");
+                    txtGuarantorName.requestFocus();
+                    submitBtn.setEnabled(true);
+                } else {
+                    // Set Guarantor
+                    CAGuarantor guarantor = new CAGuarantor(guarantorName, guarantorPhone, guarantorAddress);
+                    artisan.setGuarantors(new ArrayList<>(Arrays.asList(guarantor)));
 
-                        txtGuarantorName.requestFocus();
-                        submitBtn.setEnabled(true);
-                    } else {
-                        // Set Guarantor
-                        CAGuarantor guarantor = new CAGuarantor(guarantorName, guarantorPhone, guarantorAddress);
-                        artisan.setGuarantors(new ArrayList<>(Arrays.asList(guarantor)));
-
-                        if (!accountName.isEmpty() && !accountNumber.isEmpty()) {
-                            if (accountNumber.length() != 10) {
-                                txtAccountNumber.setError("Account Number should be 10 characters long");
-                                submitBtn.setEnabled(true);
-                            } else {
-                                // Account Information is provided
-                                String bank = banks.get(bankSpinner.getSelectedIndex()).getId();
-                                CABankDetail bankDetail = new CABankDetail();
-                                bankDetail.setAccountName(accountName);
-                                bankDetail.setNubanNumber(accountNumber);
-
-                                CABank b = new CABank();
-                                b.setId(bank);
-
-                                bankDetail.setBank(b);
-
-                                artisan.setBankDetails(bankDetail);
-                                uploadImageBitmaps();
-                            }
+                    if (!accountName.isEmpty() && !accountNumber.isEmpty()) {
+                        if (accountNumber.length() != 10) {
+                            txtAccountNumber.setError("Account Number should be 10 characters long");
+                            submitBtn.setEnabled(true);
                         } else {
-                            if (accountName.isEmpty() && accountNumber.isEmpty()) {
-                                // Proceed Without Bank details
-                                uploadImageBitmaps();
-                            } else {
-                                if (accountName.isEmpty()) showShortToast("Please provide a valid Account Name");
-                                if (accountNumber.isEmpty()) showShortToast("Please provide a valid NUBAN Account Number");
+                            // Account Information is provided
+                            String bank = banks.get(bankSpinner.getSelectedIndex()).getId();
+                            CABankDetail bankDetail = new CABankDetail();
+                            bankDetail.setAccountName(accountName);
+                            bankDetail.setNubanNumber(accountNumber);
 
-                                txtAccountName.requestFocus();
-                                submitBtn.setEnabled(true);
-                            }
+                            CABank b = new CABank();
+                            b.setId(bank);
+
+                            bankDetail.setBank(b);
+
+                            artisan.setBankDetails(bankDetail);
+                            uploadImageBitmaps();
+                        }
+                    } else {
+                        if (accountName.isEmpty() && accountNumber.isEmpty()) {
+                            // Proceed Without Bank details
+                            uploadImageBitmaps();
+                        } else {
+                            if (accountName.isEmpty()) showShortToast("Please provide a valid Account Name");
+                            if (accountNumber.isEmpty()) showShortToast("Please provide a valid NUBAN Account Number");
+
+                            txtAccountName.requestFocus();
+                            submitBtn.setEnabled(true);
                         }
                     }
-                } else {
-//                    if (certificateBitmap == null) showShortToast("Please select a Certificate!");
-                    if (identityBitmap == null) showShortToast("Please select a Valid Photo ID!");
-
-                    submitBtn.setEnabled(true);
                 }
             } else {
                 if (errors.containsKey("surname")) {
@@ -386,59 +378,64 @@ public class CANewArtisan extends CASecureActivity implements android.location.L
 
             artisan.setLocation(new ArrayList<>(Arrays.asList(mLocation.getLongitude(), mLocation.getLatitude())));
 
-            try {
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                certificateBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
-                byte[] bitmapdata = bos.toByteArray();
-                final ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
+            // Upload Images if selected
+            if (certificateBitmap != null || identityBitmap != null) {
+                try {
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    certificateBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+                    byte[] certificateBitmapData = bos.toByteArray();
+                    final ByteArrayInputStream bs = new ByteArrayInputStream(certificateBitmapData);
 
-                ByteArrayOutputStream bos1 = new ByteArrayOutputStream();
-                identityBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos1);
-                byte[] bitmapdata1 = bos1.toByteArray();
-                final ByteArrayInputStream bs1 = new ByteArrayInputStream(bitmapdata1);
+                    ByteArrayOutputStream bos1 = new ByteArrayOutputStream();
+                    identityBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos1);
+                    byte[] idBitmapData = bos1.toByteArray();
+                    final ByteArrayInputStream bs1 = new ByteArrayInputStream(idBitmapData);
 
-                showProgressBar();
+                    showProgressBar();
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            final JSONObject certificateResponse = cloudinary.uploader().upload(bs, Cloudinary.emptyMap());
-                            final JSONObject identityResponse = cloudinary.uploader().upload(bs1, Cloudinary.emptyMap());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                final JSONObject certificateResponse = cloudinary.uploader().upload(bs, Cloudinary.emptyMap());
+                                final JSONObject identityResponse = cloudinary.uploader().upload(bs1, Cloudinary.emptyMap());
 
-                            if (certificateResponse.has("secure_url")) {
-                                CACertificate certificate = new CACertificate("Practicing Certificate", certificateResponse.optString("secure_url"));
-                                artisan.setCertifications(new ArrayList<>(Arrays.asList(certificate)));
+                                if (certificateResponse.has("secure_url")) {
+                                    CACertificate certificate = new CACertificate("Practicing Certificate", certificateResponse.optString("secure_url"));
+                                    artisan.setCertifications(new ArrayList<>(Arrays.asList(certificate)));
+                                }
+
+                                if (identityResponse.has("secure_url")) {
+                                    artisan.setIdentification(identityResponse.optString("secure_url"));
+
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // Proceed to Uploading to Server
+                                            hideProgressBar();
+                                            postToServer();
+                                        }
+                                    });
+                                } else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            showShortToast("Error encountered while uploading attachments. Please try again later.");
+                                            submitBtn.setEnabled(true);
+                                        }
+                                    });
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                submitBtn.setEnabled(true);
                             }
-
-                            if (identityResponse.has("secure_url")) {
-                                artisan.setIdentification(identityResponse.optString("secure_url"));
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // Proceed to Uploading to Server
-                                        hideProgressBar();
-                                        postToServer();
-                                    }
-                                });
-                            } else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        showShortToast("Error encountered while uploading attachments. Please try again later.");
-                                        submitBtn.setEnabled(true);
-                                    }
-                                });
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            submitBtn.setEnabled(true);
                         }
-                    }
-                }).start();
-            } catch (Exception e) {
-                e.printStackTrace();
+                    }).start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                postToServer();
             }
         } else {
             showShortToast("Cannot proceed without having current location.");
